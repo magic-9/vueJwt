@@ -35,12 +35,34 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
+
+    <div class="all-site" v-show="isLoading">
+      <scale-loader class="custom-class loader-site" color="#ccc" />
+    </div>
   </div>
 </template>
+<style lang="scss">
+   
+   
+
+</style>
 
 <style lang="scss">
 .login {
   margin-top: 10px;
+}
+.all-site{
+  top:0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+
+   display: flex;
+    justify-content: center;
+    align-items: center;
+  .loader-site{
+    color: #ccc;
+  }
 }
 </style>
 <script>
@@ -49,36 +71,25 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      isLoading: false
     };
   },
   methods: {
     Login() {
-      // this.$http
-      //   .post("http://127.0.0.1:8000/api/login", {
-      //     email: this.email,
-      //     password: this.password
-      //   })
-      //   .then(res => {
-      //     this.$noty.success("Login", "Login success");
-      //     localStorage.setItem("token", res.data.access_token);
-      //     localStorage.setItem("user", res.data.user);
-      //     this.$router.push("/about");
-      //   })
-      //   .catch(() => {
-      //     this.$noty.error("Oops, something went wrong!");
-      //   });
-
+      this.isLoading = true;
       this.$store
         .dispatch("fireLoginAction", {
           email: this.email,
           password: this.password
         })
         .then(() => {
+          this.isLoading = false;
           this.$noty.success("Login", "Login success");
-          this.$router.push("/about");
+          this.$router.push("/profile-data");
         })
         .catch(() => {
+          this.isLoading = false;
           this.$noty.error("Oops, something went wrong!");
         });
     }

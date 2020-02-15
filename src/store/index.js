@@ -70,6 +70,23 @@ export default new Vuex.Store({
                         reject(err);
                     });
             });
+        },
+        fireUpdataProfile({ commit, state }, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("http://127.0.0.1:8000/api/update", {
+                        token: state.token,
+                        name: payload.name,
+                        email: payload.email
+                    })
+                    .then(res => {
+                        commit("setUser", res.data.user);
+                        resolve(res);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
         }
     },
     getters: {

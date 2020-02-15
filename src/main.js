@@ -7,7 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import VueNoty from "vuejs-noty";
 import "vuejs-noty/dist/vuejs-noty.css";
+import { VueSpinners } from '@saeris/vue-spinners'
 Vue.use(VueNoty);
+Vue.use(VueSpinners)
+
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 
